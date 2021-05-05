@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Product Page</title>
+</head>
+<body>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gpu/style.css' %}">
+
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <h1> <a href="{% url 'gpu:home_view' %}"> CheapPC.com </a> </h1>
+      <h2> Current Crypto Prices </h2>
+        <h4> BTC: ${{ btc_price }} USD </h4>
+        <h4> ETH: ${{ eth_price }} USD </h4>
+        <h4> LTC: ${{ ltc_price }} USD </h4>
+        <a href="{% url 'gpu:graphs' %}"> See prices over last week </a>
+    </div>
+
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h4 class="card-title"> Item: {{ gpu.name }} </h4>
+            <img src="{{ gpu.image }}" class="card-img-top" alt="Image not found">
+            <p class="card-text">
+                Price: {{ gpu.price }}
+                {% if user.is_authenticated %}
+                    <form method="POST">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <input type="submit" value ="Notify Me of Price Drops"/>
+                    </form>
+                {% else %}
+                    <p> <a href="{% url 'gpu:login' %}">Login</a> to be notified of price drops! </p>
+                {% endif %}
+            </p>
+            <p><a href="{{ gpu.link }}"> Find It Here! </a></p>
+        </div>
+    </div>
+
+
+
+    {% autoescape off %}
+    {{ hist_prices_graph }}
+    {% endautoescape %}
+
+    <a href="javascript:window.history.back();" class="btn btn-primary">Go back</a>
+
+</body>
+</html>

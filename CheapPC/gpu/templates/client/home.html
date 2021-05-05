@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+</head>
+<body>
+
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gpu/style.css' %}">
+    <script src="https://www.kryogenix.org/code/browser/sorttable/sorttable.js"></script>
+
+    <!-- Side navigation -->
+    <div class="sidenav">
+        <h1> <a href="{% url 'gpu:home_view' %}"> CheapPC.com </a> </h1>
+        <h2> Current Crypto Prices </h2>
+            <h4> BTC: ${{ btc_price }} USD </h4>
+            <h4> ETH: ${{ eth_price }} USD </h4>
+            <h4> LTC: ${{ ltc_price }} USD </h4>
+            <a href="{% url 'gpu:graphs' %}"> See prices over last week </a>
+    </div>
+
+    <!-- Main content -->
+    <div class="main">
+        <h1> CheapPC.com </h1>
+        <hr><hr>
+        {% if user.is_authenticated %}
+                <p> Welcome {{ user.username }}! </p>
+                <br>
+                <a href="{% url 'gpu:logout' %}"> Logout </a>
+            {% else %}
+                <p> New user? <a href="{% url 'gpu:signup' %}"> Create an account </a></p>
+                <br>
+                <p> Already have an account? <a href="{% url 'gpu:login' %}"> Login </a></p>
+        {% endif %}
+        <hr><hr>
+
+
+        <!-- Table for listings -->
+        <table class="searchable sortable">
+            <thead>
+                <tr>
+                    <th> Name </th>
+                    <th> Price </th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Loop through GPUs in DB -->
+                {% for GPU in gpu_list %}
+                <tr>
+                    <td> <a href="{% url 'gpu:gpu_card' pk=GPU.pk %}"> {{ GPU.name }} </a> </td>
+                    <td> ${{ GPU.price }} </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <hr>
+
+
+</body>
+</html>

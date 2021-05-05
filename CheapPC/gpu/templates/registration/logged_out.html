@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Logged_out </title>
+</head>
+<body>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gpu/style.css' %}">
+
+    <p>Logged out!</p>
+    <a href="{% url 'gpu:home_view' %}"> Back to home page </a>
+    <br>
+    <a href="{% url 'gpu:login'%}"> Click here to log back in </a>
+
+</body>
+</html>

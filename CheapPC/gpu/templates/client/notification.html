@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> Notification </title>
+</head>
+<body>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'gpu/style.css' %}">
+
+    <h4> NEW LOW PRICES! </h4>
+    <!-- Loop through GPUs in DB -->
+    {% for notif in notifications %}
+        <h3> --- </h3>
+        <p> {{ notif.gpu.name }} has dropped to ${{ notif.gpu.price }}!</p>
+    {% endfor %}
+
+</body>
+</html>
