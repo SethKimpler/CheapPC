@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 from pathlib import Path
 import os
 
+
+import dj_database_url
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -147,3 +151,8 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'CheapPCUpdates@gmail.com'
 EMAIL_HOST_PASSWORD = 'zuvdoc-budqi2-Sujtuq'
+
+
+# Heroku 
+
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
